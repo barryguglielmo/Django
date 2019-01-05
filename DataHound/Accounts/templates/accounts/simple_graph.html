@@ -1,0 +1,226 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+{% load staticfiles %}
+<script src = "https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<h2>{{request.user.username}}'s Graphs</h2><hr>
+<style>
+  .bar {
+    background-color: #C7D9D9;
+    }
+</style>
+<canvas id="p2" width="650" height="300"></canvas><hr>
+<canvas id="bar-chart" width="800" height="300"></canvas>
+<canvas id="doughnut" width="900" height="300"></canvas><hr>
+<canvas id="line" width="900" height="300"></canvas><hr>
+
+
+<script>
+  //Set up variables and empty lists
+  var count = 0;
+  //Prot Names
+  var x = [];
+  //Prot Percent
+  var y = [];
+
+  //Read CSV
+  d3.csv("/Accounts/bodata.csv", function(data) {
+    //
+    Object.keys(data).forEach(function (key){
+      var k = data[key]; //Logs one after the other
+      if (count%2 === 0){
+        x.push(k)
+      }else{
+        y.push(k)
+      }
+      count += 1
+    });
+
+  console.log(x)
+  console.log(y)
+  new Chart(document.getElementById("p2"), {
+      type: 'polarArea',
+      data: {
+        labels: x,
+        datasets: [
+          {
+            label: "Population (millions)",
+            backgroundColor: ["rgba(0, 0, 255, 0.15)",
+                              "rgba(0, 255, 0, 0.15)",
+                              "rgba(255, 0, 0, 0.15)",
+                              "rgba(100, 0, 100, 0.15)",
+                              "rgba(255, 0, 255, 0.15)"],
+            borderColor:["rgba(0, 0, 255, 1)",
+                              "rgba(0, 255, 0, 1)",
+                              "rgba(255, 0, 0, 1)",
+                              "rgba(100, 0, 100, 1)",
+                              "rgba(255, 0, 255, 1)"],
+            data: y
+          }
+        ]
+      },
+      options: {
+        scales:{
+          yAxes:[{
+            display: true,
+            gridLines: {
+              display: true,
+              color:"rgba(10, 10, 10, 0.2)"},
+            ticks:{ beginAtZero: true},
+            }]
+        },
+        legend: { display: true },
+        title: {
+          display: true,
+          fontColor: ["black"],
+          fontSize: 16,
+          text: 'Protein Percent Abundance'
+        },
+        layout:{
+          padding:{
+              left: 50,
+               right: 50,
+               top: 50,
+               bottom: 50
+          }
+        }
+      }
+  });
+
+  //I wanted my csv Information to Be used
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: x,
+      datasets: [
+        {
+          label: "Percent",
+          backgroundColor: ["rgba(0, 0, 255, 0.15)",
+                            "rgba(0, 255, 0, 0.15)",
+                            "rgba(255, 0, 0, 0.15)",
+                            "rgba(100, 0, 100, 0.15)",
+                            "rgba(255, 0, 255, 0.15)"],
+          borderColor:["rgba(0, 0, 255, 1)",
+                            "rgba(0, 255, 0, 1)",
+                            "rgba(255, 0, 0, 1)",
+                            "rgba(100, 0, 100, 1)",
+                            "rgba(255, 0, 255, 1)"],
+          borderWidth:1,
+          data: y
+        }
+      ]
+    },
+    options: {
+      scales:{yAxes:[{
+        ticks:{ beginAtZero: true},
+        gridLines: {
+          display: true,
+          color:"rgba(10, 10, 10, 0.2)"},}]},
+      legend: { display: false },
+      title: {
+        fontColor: ["black"],
+        fontSize: 16,
+        display: true,
+        text: 'Protein Percent Abundance'
+      },
+      layout:{
+        padding:{
+            left: 50,
+             right: 50,
+             top: 50,
+             bottom: 50
+        }
+      },
+      borderColor:"blue"
+    }
+});
+
+new Chart(document.getElementById("doughnut"), {
+    type: 'doughnut',
+    data: {
+      labels: x,
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["rgba(0, 0, 255, 0.5)",
+                            "rgba(0, 255, 0, 0.15)",
+                            "rgba(255, 0, 0, 0.15)",
+                            "rgba(100, 0, 100, 0.15)",
+                            "rgba(255, 0, 255, 0.15)"],
+          borderColor:["rgba(0, 0, 255, 1)",
+                            "rgba(0, 255, 0, 1)",
+                            "rgba(255, 0, 0, 1)",
+                            "rgba(100, 0, 100, 1)",
+                            "rgba(255, 0, 255, 1)"],
+          data: y
+        }
+      ]
+    },
+    options: {
+      legend: { display: true },
+      title: {
+        display: true,
+        fontColor: ["black"],
+        fontSize: 16,
+        text: 'Protein Percent Abundance'
+      },
+      layout:{
+        padding:{
+            left: 10,
+             right: 10,
+             top: 10,
+             bottom: 10
+        }
+      }
+    }
+});
+
+new Chart(document.getElementById("line"), {
+    type: 'line',
+    fillOpacity: 0.3,
+    data: {
+      labels: x,
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["rgba(0, 0, 255, 0.5)"],
+          borderColor:["rgba(0, 0, 255, 1)"],
+          data: y
+        }
+      ]
+    },
+    options: {
+      scales:{yAxes:[{ticks:{ beginAtZero: true},
+      gridLines: {
+        display: true,
+        color:"rgba(10, 10, 10, 0.2)"},}]},
+      legend: { display: true },
+      title: {
+        display: true,
+        fontColor: ["black"],
+        fontSize: 16,
+        text: 'Protein Percent Abundance'
+      },
+      layout:{
+        padding:{
+            left: 50,
+             right: 50,
+             top: 50,
+             bottom: 50
+        }
+      }
+    }
+});
+});
+
+
+</script>
+</div>
+<center>
+  <h2>
+    <a href = '/Accounts/DataListView/'><button class="btn btn-primary">CLICK HERE FOR YOUR FILES</button></a><br><br>
+    <a href = '/Accounts/NewCsv/'><button class="btn btn-primary">CLICK HERE TO ADD FILES</button></a>
+  </h2>
+</center>
+{% endblock %}

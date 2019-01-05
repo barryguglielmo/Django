@@ -1,0 +1,17 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+<h2>Registration Page</h2><br>
+<form method = 'post'>
+
+  {% csrf_token %}
+  {% for field in form %}
+      <p>
+        <center>
+        {{ field.label_tag }}<br>
+        {{ field }}
+  {% endfor %}
+  <br><br>
+  <button style = "width:40%;" type="submit">Submit</button>
+
+</form>
+{% endblock %}

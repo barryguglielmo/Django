@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>DataHound</title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="shortcut icon" href="{% static 'bigday/img/flower1.jpg' type='image/x-icon' %}">
+</head>
+
+<style>
+h1 {
+ 	padding: 0px;
+	font-family: 'Quicksand', sans-serif;
+	color:white;
+  font-size:500%;
+ 	text-align: left;
+ 	background:black;
+	background-size:cover;
+	background-repeat:no-repeat;
+	margin-top:1%;
+  box-shadow:none;
+}
+h2{
+font-family: 'Quicksand', sans-serif;
+  color:white;
+  font-size:175%;
+	padding: 10px;
+	text-align: center;
+	margin:0%;
+  margin-top:0%;
+  box-shadow:none;
+  background-color:black;
+	border: 2px solid white;
+}
+h3{
+	font-family: 'Quicksand', sans-serif;
+  color:white;
+  font-size:175%;
+	padding: 10px;
+	text-align: center;
+	margin:9%;
+  margin-top:0%;
+  box-shadow:10px 10px 10px;
+  background-color:#80a87f;
+	border: 2px solid blue;
+}
+button{
+	width:100%;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a{
+	color:white;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
+	color:gray;
+}
+
+</style>
+
+<div = "container">
+	<nav class = "navbar navbar-inverse" style= "margin:0;">
+		<div class = "container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" style = "color:white; margin-right:370px; border-bottom:2px solid white;border-right:2px solid white;" href="/#/">DataHound</a>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style = "border:2px solid lightgray;">
+					<center>
+						<span class="icon-bar" style ="width:10%;"></span>
+						<span class="icon-bar" style ="width:10%;"></span>
+						<span class="icon-bar" style ="width:10%;"></span>
+					</center>
+	      </button>
+	    </div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class = "nav navbar-nav" >
+				<li><a class = "nav-link" href="/Accounts/register/" style = "border-right:2px solid lightgray;">REGISTER</a></li>
+				<li><a class = "nav-link "href="/Accounts/login/" style = "border-right:2px solid lightgray;">LOGIN</a></li>
+	      <li><a class = "nav-link" href="/Accounts/your_home/" style = "border-right:2px solid lightgray; " >HOME</a></li>
+	      <li><a class = "nav-link" href="/Accounts/NewCsv/" style = "border-right:2px solid lightgray;">UPLOAD</a></li>
+				<li><a class = "nav-link" href="/Accounts/DataListView/" style = "border-right:2px solid lightgray;">DATA LIST</a></li>
+				<li><a class = "nav-link" href="/Accounts/simple_graph/" style = "border-right:2px solid lightgray;">GRAPH</a></li>
+        <li><a class = "nav-link"  href="/Accounts/logout_view/">LOGOUT</a></li>
+			</ul>
+		</div>
+	</div>
+	</nav>
+</div>
+<br><br>
+<body style = "background-color:whitesmoke;" >
+			   {% block content %}
+			   {% endblock %}
+
+</body>
+
+<br><br><br>
+<footer>
+	<div>
+	  {% include 'includes/footer.html' %}
+	</div>
+</footer>
+</html>

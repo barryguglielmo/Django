@@ -1,0 +1,10 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+<h2>Hello {{request.user.username}}<br>Below is a list of your csv's</h2><br><br>
+<center>
+  {% for csv in Data_List %}
+    <button class="btn btn-success" style = "width:30%">{{csv.description}}.csv</button><br>
+  {% endfor %}
+  <br><a href = '/Accounts/NewCsv/'><button class="btn btn-primary" style = "width: 50%">CLICK HERE TO ADD FILES</button></a>
+</center>
+{% endblock %}

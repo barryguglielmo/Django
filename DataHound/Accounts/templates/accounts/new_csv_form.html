@@ -1,0 +1,18 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+<center>
+<form method = 'post' enctype ="multipart/form-data" >
+  <h2>Hey {{request.user.username}}:<br> Enter New CSV files Below</h2>
+  <p>
+    {% csrf_token %}
+    {% for field in form %}
+        <p>
+          <center>
+          {{ field.label_tag }}<br>
+          {{ field }}
+    {% endfor %}<br><br>
+    <button style = "width:40%;" type="submit">Submit</button>
+  </p>
+</form>
+</center>
+{%endblock %}
